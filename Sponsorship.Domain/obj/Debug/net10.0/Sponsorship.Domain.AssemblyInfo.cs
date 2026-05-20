@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sponsorship.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+47769d8d1ec7326a677a2d576d4b9c056616905c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3e11293e5fbbe829b8d8a37438c6d305ebb5b2eb")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sponsorship.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sponsorship.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
