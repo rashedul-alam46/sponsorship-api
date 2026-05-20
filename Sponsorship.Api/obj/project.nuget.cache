@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "i62OfEi+M1E=",
+  "success": true,
+  "projectFilePath": "E:\\GitHub\\Sponsorship\\SponsorshipApi\\Sponsorship.Api\\Sponsorship.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Rashed\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.8\\microsoft.aspnetcore.openapi.10.0.8.nupkg.sha512",
+    "C:\\Users\\Rashed\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
