@@ -5,6 +5,7 @@ using Sponsorship.Application.Interfaces.Repositories;
 using Sponsorship.Application.Interfaces.Services;
 using Sponsorship.Application.Wrappers;
 using Sponsorship.Domain.Entities;
+using Sponsorship.Interfaces.Helpers;
 
 namespace Sponsorship.Application.Services;
 
@@ -15,14 +16,15 @@ public class SponsorshipRequestService : ISponsorshipRequestService
     private readonly IWorkflowHistoryRepository _repoWorkflowHistory;
     private readonly IServiceResponseFactory _response;
     private readonly IMapper _mapper;
+    private readonly IUnitOfWork _unitOfWork;
 
-
-    public SponsorshipRequestService(ISponsorshipRequestRepository repo, IWorkflowHistoryRepository repoWorkflowHistory, IMapper mapper, IServiceResponseFactory response)
+    public SponsorshipRequestService(ISponsorshipRequestRepository repo, IWorkflowHistoryRepository repoWorkflowHistory, IMapper mapper, IServiceResponseFactory response, IUnitOfWork unitOfWork)
     {
         _repo = repo;
         _repoWorkflowHistory = repoWorkflowHistory;
         _mapper = mapper;
         _response = response;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<ServiceResponse<IEnumerable<SponsorshipRequestReadDto>>> GetSponsorshipRequestsAsync()
@@ -64,30 +66,46 @@ public class SponsorshipRequestService : ISponsorshipRequestService
     }
     public async Task<ServiceResponse<SponsorshipRequestReadDto>> AddSponsorshipRequestAsync(SponsorshipRequestCreateDto dto)
     {
-        // Sponsorship request creation logic
-        var sponsorshipRequest = _mapper.Map<SponsorshipRequests>(dto);
-        sponsorshipRequest.CreatedAt = DateTime.UtcNow;
-        sponsorshipRequest.Status = "PMA";
-
-        var savedEntity = await _repo.AddAsync(sponsorshipRequest);
-
-        // Add initial workflow history entry
-        var res = await _repoWorkflowHistory.AddAsync(new WorkflowHistories
+        try
         {
+            var result = await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                // Sponsorship request creation logic
+                var sponsorshipRequest = _mapper.Map<SponsorshipRequests>(dto);
 
-            SponsorshipId = savedEntity.SponsorshipId,
-            Notes = "PMA",
-            ActionBy = savedEntity.CreatedBy ?? Guid.Empty,
-            ActionDate = DateTime.UtcNow
+                sponsorshipRequest.CreatedAt = DateTime.UtcNow;
+                sponsorshipRequest.Status = "PMA";
 
-        });
+                var savedEntity = await _repo.AddAsync(sponsorshipRequest);
 
-        var resultDto = await _repo.GetByIdAsync(savedEntity.SponsorshipId);
-        return _response.Create(
-             success: true,
-             message: "Sponsorship request added successfully",
-             data: _mapper.Map<SponsorshipRequestReadDto>(resultDto)
-        );
+                // Add workflow history
+                await _repoWorkflowHistory.AddAsync(new WorkflowHistories
+                {
+                    SponsorshipId = savedEntity.SponsorshipId,
+                    Notes = "New",
+                    ActionBy = savedEntity.CreatedBy ?? Guid.Empty,
+                    ActionDate = DateTime.UtcNow
+                });
+
+                var resultDto = await _repo.GetByIdAsync(savedEntity.SponsorshipId);
+
+                return _response.Create(
+                    success: true,
+                    message: "Sponsorship request added successfully",
+                    data: _mapper.Map<SponsorshipRequestReadDto>(resultDto)
+                );
+            });
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return _response.Create<SponsorshipRequestReadDto>(
+                false,
+                ex.Message,
+                null
+            );
+        }
     }
     public async Task<ServiceResponse<SponsorshipRequestReadDto>> UpdateSponsorshipRequestAsync(Guid id, SponsorshipRequestUpdateDto dto)
     {

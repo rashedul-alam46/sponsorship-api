@@ -6,6 +6,8 @@ using Sponsorship.Application.Factories;
 using Sponsorship.Infrastructure.Data;
 using Sponsorship.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Sponsorship.Interfaces.Helpers;
+using Sponsorship.Infrastructure.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +29,11 @@ builder.Services.AddScoped<ISponsorshipRequestService, SponsorshipRequestService
 
 builder.Services.AddScoped<IDropdownRepository, DropdownRepository>();
 builder.Services.AddScoped<IDropdownService, DropdownService>();
+
+builder.Services.AddScoped<IWorkflowHistoryRepository, WorkflowHistoryRepository>();
+builder.Services.AddScoped<IWorkflowHistoryService, WorkflowHistoryService>();
+
+builder.Services.AddScoped<IUnitOfWork, MasterUnitOfWork>();
 
 // AutoMapper
 builder.Services.AddAutoMapper(_ => { }, typeof(MasterProfile).Assembly);
