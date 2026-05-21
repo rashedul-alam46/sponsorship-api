@@ -8,10 +8,16 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.8" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.7" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sponsorship.Application\Sponsorship.Application.csproj" />
+    <ProjectReference Include="..\Sponsorship.Application\Sponsorship.Application.csproj" />   
+    <ProjectReference Include="..\Sponsorship.Domain\Sponsorship.Domain.csproj" />
+    <ProjectReference Include="..\Sponsorship.Infrastructure\Sponsorship.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

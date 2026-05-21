@@ -22,10 +22,19 @@ public class SponsorshipDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<SponsorshipRequests>(entity =>
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
-            entity.Property(e => e.RowVersion)
-                  .IsRowVersion();
-        });
+            var createdAt = entityType.FindProperty("CreatedAt");
+            if (createdAt != null)
+            {
+                createdAt.SetColumnType("timestamp with time zone");
+            }
+
+            var updatedAt = entityType.FindProperty("UpdatedAt");
+            if (updatedAt != null)
+            {
+                updatedAt.SetColumnType("timestamp with time zone");
+            }
+        }
     }
 }

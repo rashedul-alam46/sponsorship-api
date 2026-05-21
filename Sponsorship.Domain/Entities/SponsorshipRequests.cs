@@ -70,7 +70,4 @@ public class SponsorshipRequests
 
     [Column("updated_by")]
     public Guid? UpdatedBy { get; set; }
-
-    [Timestamp]
-    public byte[] RowVersion { get; set; } = null!;
 }

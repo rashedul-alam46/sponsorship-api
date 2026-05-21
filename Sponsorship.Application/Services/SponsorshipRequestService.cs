@@ -64,6 +64,7 @@ public class SponsorshipRequestService : ISponsorshipRequestService
     {
         var sponsorshipRequest = _mapper.Map<SponsorshipRequests>(dto);
         sponsorshipRequest.CreatedAt = DateTime.UtcNow;
+        sponsorshipRequest.Status = "PMA";
 
         var savedEntity = await _repo.AddAsync(sponsorshipRequest);
         var resultDto = await _repo.GetByIdAsync(savedEntity.SponsorshipId);

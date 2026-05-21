@@ -1,41 +1,87 @@
+using Sponsorship.Application.Interfaces.Repositories;
+using Sponsorship.Application.Interfaces.Services;
+using Sponsorship.Application.Mappings;
+using Sponsorship.Application.Services;
+using Sponsorship.Application.Factories;
+using Sponsorship.Infrastructure.Data;
+using Sponsorship.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// Add controllers
+builder.Services.AddControllers();
+
+
+
+builder.Services.AddDbContext<SponsorshipDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("ConString")));
+
+// Register repositories and services
+builder.Services.AddScoped<IServiceResponseFactory, ServiceResponseFactory>();
+
+builder.Services.AddScoped<ISponsorshipRequestRepository, SponsorshipRequestRepository>();
+builder.Services.AddScoped<ISponsorshipRequestService, SponsorshipRequestService>();
+
+builder.Services.AddScoped<IDropdownRepository, DropdownRepository>();
+builder.Services.AddScoped<IDropdownService, DropdownService>();
+
+// AutoMapper
+builder.Services.AddAutoMapper(_ => { }, typeof(MasterProfile).Assembly);
+
+
+// Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
+// CORS (for Blazor or frontend)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowBlazor", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
+// Middleware
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
+    // Redirect root to Swagger
+    app.MapGet("/", () => Results.Redirect("/swagger")).ExcludeFromDescription();
 }
+
+
+// CORS
+app.UseCors("AllowBlazor");
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.UseAuthorization();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.MapControllers();
+
+// using (var scope = app.Services.CreateScope())
+// {
+//     var context = scope.ServiceProvider.GetRequiredService<SponsorshipDbContext>();
+
+//     // Apply migrations first (important)
+//     await context.Database.MigrateAsync();
+
+//     // Run seeder
+//     await DatabaseSeeder.SeedAsync(context);
+// }
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
