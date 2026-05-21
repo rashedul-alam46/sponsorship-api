@@ -12,5 +12,10 @@ public class MasterProfile : Profile
         CreateMap<SponsorshipRequests, SponsorshipRequestReadDto>();
         CreateMap<SponsorshipRequestCreateDto, SponsorshipRequests>();
         CreateMap<SponsorshipRequestUpdateDto, SponsorshipRequests>();
+
+
+        // WorkflowHistory mappings
+        CreateMap<WorkflowHistories, WorkflowHistoryReadDto>();
+        CreateMap<WorkflowHistoryCreateDto, WorkflowHistories>();
     }
 }

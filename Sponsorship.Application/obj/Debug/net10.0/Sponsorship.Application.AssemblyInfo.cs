@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sponsorship.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+010a16e1a825f6d55828579c6dc13c37f7a48d44")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+353ebec255f207ac2d4cb51d9d5a104e6ed3f510")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sponsorship.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sponsorship.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

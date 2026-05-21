@@ -12,13 +12,15 @@ public class SponsorshipRequestService : ISponsorshipRequestService
 {
 
     private readonly ISponsorshipRequestRepository _repo;
+    private readonly IWorkflowHistoryRepository _repoWorkflowHistory;
     private readonly IServiceResponseFactory _response;
     private readonly IMapper _mapper;
 
 
-    public SponsorshipRequestService(ISponsorshipRequestRepository repo, IMapper mapper, IServiceResponseFactory response)
+    public SponsorshipRequestService(ISponsorshipRequestRepository repo, IWorkflowHistoryRepository repoWorkflowHistory, IMapper mapper, IServiceResponseFactory response)
     {
         _repo = repo;
+        _repoWorkflowHistory = repoWorkflowHistory;
         _mapper = mapper;
         _response = response;
     }
@@ -62,11 +64,24 @@ public class SponsorshipRequestService : ISponsorshipRequestService
     }
     public async Task<ServiceResponse<SponsorshipRequestReadDto>> AddSponsorshipRequestAsync(SponsorshipRequestCreateDto dto)
     {
+        // Sponsorship request creation logic
         var sponsorshipRequest = _mapper.Map<SponsorshipRequests>(dto);
         sponsorshipRequest.CreatedAt = DateTime.UtcNow;
         sponsorshipRequest.Status = "PMA";
 
         var savedEntity = await _repo.AddAsync(sponsorshipRequest);
+
+        // Add initial workflow history entry
+        var res = await _repoWorkflowHistory.AddAsync(new WorkflowHistories
+        {
+
+            SponsorshipId = savedEntity.SponsorshipId,
+            Notes = "PMA",
+            ActionBy = savedEntity.CreatedBy ?? Guid.Empty,
+            ActionDate = DateTime.UtcNow
+
+        });
+
         var resultDto = await _repo.GetByIdAsync(savedEntity.SponsorshipId);
         return _response.Create(
              success: true,
@@ -113,6 +128,25 @@ public class SponsorshipRequestService : ISponsorshipRequestService
         return _response.Create(
              success: true,
              message: "Sponsorship request deleted successfully",
+             data: true
+        );
+    }
+
+    public async Task<ServiceResponse<bool>> UpdateStatusAsync(Guid id, string status)
+    {
+        var result = await _repo.UpdateStatusAsync(id, status);
+        if (!result)
+        {
+            return _response.Create<bool>(
+                success: false,
+                message: "Sponsorship request not found or status update failed",
+                data: false
+            );
+        }
+
+        return _response.Create(
+             success: true,
+             message: "Sponsorship request status updated successfully",
              data: true
         );
     }

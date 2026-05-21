@@ -105,4 +105,11 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
     {
         return await _context.SponsorshipRequests.AnyAsync(a => a.SponsorshipId == sponsorshipId);
     }
+
+    public async Task<bool> UpdateStatusAsync(Guid id, string status)
+    {
+        return await _context.Set<SponsorshipRequests>()
+            .Where(x => x.SponsorshipId == id)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Status, status)) > 0;
+    }
 }

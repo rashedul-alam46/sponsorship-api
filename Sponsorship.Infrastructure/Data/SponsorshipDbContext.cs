@@ -17,6 +17,8 @@ public class SponsorshipDbContext : DbContext
     public DbSet<SponsorshipTypes> SponsorshipTypes { get; set; }
     public DbSet<UserRoles> UserRoles { get; set; }
     public DbSet<WorkflowStatus> WorkflowStatus { get; set; }
+    public DbSet<WorkflowHistories> WorkflowHistories { get; set; }
+    public DbSet<AppUsers> AppUsers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -34,6 +36,12 @@ public class SponsorshipDbContext : DbContext
             if (updatedAt != null)
             {
                 updatedAt.SetColumnType("timestamp with time zone");
+            }
+
+            var actionDate = entityType.FindProperty("ActionDate");
+            if (actionDate != null)
+            {
+                actionDate.SetColumnType("timestamp with time zone");
             }
         }
     }

@@ -10,4 +10,5 @@ public interface ISponsorshipRequestService
     Task<ServiceResponse<SponsorshipRequestReadDto>> AddSponsorshipRequestAsync(SponsorshipRequestCreateDto sponsorshipRequestDto);
     Task<ServiceResponse<SponsorshipRequestReadDto>> UpdateSponsorshipRequestAsync(Guid id, SponsorshipRequestUpdateDto sponsorshipRequestDto);
     Task<ServiceResponse<bool>> DeleteSponsorshipRequestAsync(Guid id);
+    Task<ServiceResponse<bool>> UpdateStatusAsync(Guid id, string status);
 }

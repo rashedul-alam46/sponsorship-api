@@ -12,5 +12,6 @@ public interface ISponsorshipRequestRepository
     Task<bool> UpdateAsync(SponsorshipRequests sponsorshipRequest);
     Task<bool> DeleteAsync(Guid id);
     Task<bool> ExistsBySponsorshipIdAsync(Guid sponsorshipRequestId);
+    Task<bool> UpdateStatusAsync(Guid id, string status);
 }
 
