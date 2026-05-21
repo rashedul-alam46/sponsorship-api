@@ -110,7 +110,7 @@ public class AccountAuthService : IAccountAuthService
 
         // Get user by email
         var user = await _repo.GetUserForSignInAsync(dto.Email);
-        if (user == null || user.StatusCode != "ACT")
+        if (user == null)
         {
             return _response.Create<SignInResponseDto>(false, "Invalid credentials");
         }
@@ -127,12 +127,10 @@ public class AccountAuthService : IAccountAuthService
         // Map response DTO
         SignInResponseDto signInResponseDto = new SignInResponseDto
         {
-            TenantId = user.TenantId,
             UserId = user.UserId,
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            StatusCode = user.StatusCode,
             RoleId = user.RoleId
         };
 

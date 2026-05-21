@@ -19,18 +19,16 @@ public class SignInDto
 public class SignInResponseDto
 {
     // Tokens
-    public string AccessToken { get; set; } = string.Empty;
-    public string RefreshToken { get; set; } = string.Empty;
-    public DateTime ExpiresAt { get; set; }
+    public string? AccessToken { get; set; } = string.Empty;
+    public string? RefreshToken { get; set; } = string.Empty;
+    public DateTime? ExpiresAt { get; set; }
 
     // User info
-    public Guid UserId { get; set; }
-    public string Email { get; set; } = string.Empty;
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
-    public Guid? TenantId { get; set; }
-    public int RoleId { get; set; }
-    public string StatusCode { get; set; }
+    public Guid? UserId { get; set; }
+    public string? Email { get; set; }
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public int RoleId { get; set; } = 0;
 }
 
 public class SignInUserDto

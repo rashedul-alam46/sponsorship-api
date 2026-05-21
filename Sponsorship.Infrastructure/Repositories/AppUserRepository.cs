@@ -102,14 +102,21 @@ public class AppUserRepository : IAppUserRepository
         if (appUsers == null)
             throw new ArgumentNullException(nameof(appUsers));
 
-        _context.Set<AppUsers>().Attach(appUsers);
+        var tracked = _context.ChangeTracker
+            .Entries<AppUsers>()
+            .FirstOrDefault(e => e.Entity.UserId == appUsers.UserId);
+
+        if (tracked != null)
+        {
+            tracked.State = EntityState.Detached;
+        }
+
+        _context.Attach(appUsers);
 
         _context.Entry(appUsers).Property(x => x.PasswordHash).IsModified = true;
         _context.Entry(appUsers).Property(x => x.PassSetOn).IsModified = true;
 
-        var affectedRows = await _context.SaveChangesAsync();
-
-        return affectedRows > 0;
+        return await _context.SaveChangesAsync() > 0;
     }
 
     public async Task<SignInUserDto?> GetUserForSignInAsync(string email)
