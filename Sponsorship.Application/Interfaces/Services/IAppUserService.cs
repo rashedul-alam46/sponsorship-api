@@ -1,5 +1,6 @@
 using Sponsorship.Application.DTOs;
 using Sponsorship.Application.Wrappers;
+using Sponsorship.Domain.Entities;
 
 namespace Sponsorship.Application.Interfaces.Services;
 
@@ -10,5 +11,6 @@ public interface IAppUserService
     Task<ServiceResponse<AppUserReadDto>> AddAppUserAsync(AppUserCreateDto appUserDto);
     Task<ServiceResponse<AppUserReadDto>> UpdateAppUserAsync(Guid id, AppUserUpdateDto appUserDto);
     Task<ServiceResponse<bool>> DeleteAppUserAsync(Guid id);
+
 
 }

@@ -11,5 +11,7 @@ public interface IAppUserRepository
     Task<AppUsers> AddAsync(AppUsers appUser);
     Task<bool> UpdateAsync(AppUsers appUser);
     Task<bool> DeleteAsync(Guid id);
+    Task<bool> UpdatePasswordAsync(AppUsers appUsers);
+    Task<SignInUserDto?> GetUserForSignInAsync(string email);
 }
 

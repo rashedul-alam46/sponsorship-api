@@ -96,4 +96,37 @@ public class AppUserRepository : IAppUserRepository
         return true;
     }
 
+    // Update user password by tenantId and userId
+    public async Task<bool> UpdatePasswordAsync(AppUsers appUsers)
+    {
+        if (appUsers == null)
+            throw new ArgumentNullException(nameof(appUsers));
+
+        _context.Set<AppUsers>().Attach(appUsers);
+
+        _context.Entry(appUsers).Property(x => x.PasswordHash).IsModified = true;
+        _context.Entry(appUsers).Property(x => x.PassSetOn).IsModified = true;
+
+        var affectedRows = await _context.SaveChangesAsync();
+
+        return affectedRows > 0;
+    }
+
+    public async Task<SignInUserDto?> GetUserForSignInAsync(string email)
+    {
+        var result = await (from i in _context.Set<AppUsers>()
+                            where i.Email == email
+                            select new SignInUserDto
+                            {
+                                UserId = i.UserId,
+                                Email = i.Email,
+                                FirstName = i.FirstName,
+                                LastName = i.LastName,
+                                RoleId = i.RoleId,
+                                PasswordHash = i.PasswordHash
+                            })
+            .FirstOrDefaultAsync();
+        return result;
+    }
+
 }

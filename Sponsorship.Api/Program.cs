@@ -10,6 +10,7 @@ using Sponsorship.Interfaces.Helpers;
 using Sponsorship.Infrastructure.Models;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add controllers
@@ -37,6 +38,10 @@ builder.Services.AddScoped<IWorkflowHistoryRepository, WorkflowHistoryRepository
 builder.Services.AddScoped<IWorkflowHistoryService, WorkflowHistoryService>();
 
 builder.Services.AddScoped<IUnitOfWork, MasterUnitOfWork>();
+
+builder.Services.AddScoped<IAccountAuthService, AccountAuthService>();
+
+
 
 // AutoMapper
 builder.Services.AddAutoMapper(_ => { }, typeof(MasterProfile).Assembly);

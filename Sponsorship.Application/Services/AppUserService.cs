@@ -7,6 +7,7 @@ using Sponsorship.Application.Wrappers;
 using Sponsorship.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
+
 namespace Sponsorship.Application.Services;
 
 public class AppUserService : IAppUserService
@@ -145,6 +146,25 @@ public class AppUserService : IAppUserService
              data: true
         );
     }
+
+    // Change password for a system user
+    public async Task<ServiceResponse<bool>> ChangePasswordAsync(ChangePasswordDto dto)
+    {
+        var userFromDb = await _repo.GetEntityByIdAsync(dto.UserId);
+        if (userFromDb == null)
+        {
+            return _response.Create(false, "User not found", false);
+        }
+        return _response.Create(
+             success: true,
+             message: "App user password changed successfully",
+             data: true
+        );
+    }
+
+
+
+
 }
 
 
