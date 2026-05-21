@@ -1,0 +1,12 @@
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Domain\bin\Debug\net10.0\Sponsorship.Domain.deps.json
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Domain\bin\Debug\net10.0\Sponsorship.Domain.dll
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Domain\bin\Debug\net10.0\Sponsorship.Domain.pdb
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Domain\obj\Debug\net10.0\Sponsorship.Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Domain\obj\Debug\net10.0\Sponsorship.Domain.AssemblyInfoInputs.cache
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Domain\obj\Debug\net10.0\Sponsorship.Domain.AssemblyInfo.cs
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Domain\obj\Debug\net10.0\Sponsorship.Domain.csproj.CoreCompileInputs.cache
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Domain\obj\Debug\net10.0\Sponsorship.Domain.sourcelink.json
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Domain\obj\Debug\net10.0\Sponsorship.Domain.dll
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Domain\obj\Debug\net10.0\refint\Sponsorship.Domain.dll
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Domain\obj\Debug\net10.0\Sponsorship.Domain.pdb
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Domain\obj\Debug\net10.0\ref\Sponsorship.Domain.dll

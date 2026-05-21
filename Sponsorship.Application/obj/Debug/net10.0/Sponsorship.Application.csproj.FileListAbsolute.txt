@@ -1,0 +1,16 @@
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\bin\Debug\net10.0\Sponsorship.Application.deps.json
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\bin\Debug\net10.0\Sponsorship.Application.dll
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\bin\Debug\net10.0\Sponsorship.Application.pdb
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\bin\Debug\net10.0\Sponsorship.Domain.dll
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\bin\Debug\net10.0\Sponsorship.Domain.pdb
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\obj\Debug\net10.0\Sponsorship.Application.csproj.AssemblyReference.cache
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\obj\Debug\net10.0\Sponsorship.Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\obj\Debug\net10.0\Sponsorship.Application.AssemblyInfoInputs.cache
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\obj\Debug\net10.0\Sponsorship.Application.AssemblyInfo.cs
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\obj\Debug\net10.0\Sponsorship.Application.csproj.CoreCompileInputs.cache
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\obj\Debug\net10.0\Sponsorship.Application.sourcelink.json
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\obj\Debug\net10.0\Sponsors.5B749BAE.Up2Date
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\obj\Debug\net10.0\Sponsorship.Application.dll
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\obj\Debug\net10.0\refint\Sponsorship.Application.dll
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\obj\Debug\net10.0\Sponsorship.Application.pdb
+E:\GitHub\Sponsorship\SponsorshipApi\Sponsorship.Application\obj\Debug\net10.0\ref\Sponsorship.Application.dll
