@@ -27,6 +27,9 @@ builder.Services.AddScoped<IServiceResponseFactory, ServiceResponseFactory>();
 builder.Services.AddScoped<ISponsorshipRequestRepository, SponsorshipRequestRepository>();
 builder.Services.AddScoped<ISponsorshipRequestService, SponsorshipRequestService>();
 
+builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
+builder.Services.AddScoped<IAppUserService, AppUserService>();
+
 builder.Services.AddScoped<IDropdownRepository, DropdownRepository>();
 builder.Services.AddScoped<IDropdownService, DropdownService>();
 

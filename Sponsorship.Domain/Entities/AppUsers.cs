@@ -42,8 +42,8 @@ public class AppUsers
     [Column("is_active", TypeName = "boolean")]
     public bool? IsActive { get; set; }
 
+
     [Required]
-    [MaxLength(3)]
-    [Column("dep_code", TypeName = "character(3)")]
-    public string DepCode { get; set; } = string.Empty;
+    [Column("role_id", TypeName = "character(3)")]
+    public int RoleId { get; set; } = 0;
 }

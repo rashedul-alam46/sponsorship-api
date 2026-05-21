@@ -17,5 +17,9 @@ public class MasterProfile : Profile
         // WorkflowHistory mappings
         CreateMap<WorkflowHistories, WorkflowHistoryReadDto>();
         CreateMap<WorkflowHistoryCreateDto, WorkflowHistories>();
+
+        // AppUser mappings
+        CreateMap<AppUsers, AppUserReadDto>();
+        CreateMap<AppUserCreateDto, AppUsers>();
     }
 }

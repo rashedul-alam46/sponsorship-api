@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Sponsorship.Infrastructure.Data;
 using Sponsorship.Interfaces.Helpers;
 
 
@@ -7,9 +8,9 @@ namespace Sponsorship.Infrastructure.Models;
 
 public class MasterUnitOfWork : IUnitOfWork
 {
-    private readonly DbContext _context;
+    private readonly SponsorshipDbContext _context;
 
-    public MasterUnitOfWork(DbContext context)
+    public MasterUnitOfWork(SponsorshipDbContext context)
     {
         _context = context;
     }
