@@ -87,5 +87,25 @@ namespace Sponsorship.Api.Controllers
 
             return Ok(result);
         }
+
+        // PUT: api/sponsorshiprequests/{id}/status
+        [HttpPut("{id:guid}/status")]
+        public async Task<ActionResult<SponsorshipRequestReadDto>> Update(Guid id, string status)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _service.UpdateStatusAsync(id, status);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace Sponsorship.Api.Controllers
             _service = service;
         }
 
-        // POST: api/accountauth/change-password
+        // POST: api/accountauths/change-password
         [HttpPost("change-password")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
         {
@@ -34,7 +34,7 @@ namespace Sponsorship.Api.Controllers
         }
 
 
-        // POST: api/accountauth/sign-in
+        // POST: api/accountauths/sign-in
         [HttpPost("sign-in")]
         public async Task<IActionResult> SignIn([FromBody] SignInDto dto)
         {
@@ -49,7 +49,7 @@ namespace Sponsorship.Api.Controllers
             return Ok(result);
         }
 
-        // POST: api/accountauth/sign-out
+        // POST: api/accountauths/sign-out
         [HttpPost("sign-out")]
         public async Task<IActionResult> SignOut()
         {
