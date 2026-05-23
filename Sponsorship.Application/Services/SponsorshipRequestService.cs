@@ -27,9 +27,10 @@ public class SponsorshipRequestService : ISponsorshipRequestService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<ServiceResponse<IEnumerable<SponsorshipRequestReadDto>>> GetSponsorshipRequestsAsync()
+    // Get all sponsorship requests
+    public async Task<ServiceResponse<IEnumerable<SponsorshipRequestReadDto>>> GetSponsorshipRequestsAsync(Guid userId, int roleId)
     {
-        var result = await _repo.GetAllAsync();
+        var result = await _repo.GetAllAsync(userId, roleId);
 
         if (!result.Any())
         {
@@ -46,6 +47,8 @@ public class SponsorshipRequestService : ISponsorshipRequestService
              data: result
         );
     }
+
+    // Get sponsorship request by ID
     public async Task<ServiceResponse<SponsorshipRequestReadDto>> GetSponsorshipRequestAsync(Guid id)
     {
         var result = await _repo.GetByIdAsync(id);
@@ -64,6 +67,8 @@ public class SponsorshipRequestService : ISponsorshipRequestService
              data: result
         );
     }
+
+    // Add new sponsorship request
     public async Task<ServiceResponse<SponsorshipRequestReadDto>> AddSponsorshipRequestAsync(SponsorshipRequestCreateDto dto)
     {
         try
@@ -74,7 +79,14 @@ public class SponsorshipRequestService : ISponsorshipRequestService
                 var sponsorshipRequest = _mapper.Map<SponsorshipRequests>(dto);
 
                 sponsorshipRequest.CreatedAt = DateTime.UtcNow;
-                sponsorshipRequest.Status = "PMA";
+                if (dto.SaveAsDraft == "Y")
+                {
+                    sponsorshipRequest.Status = "DRA";
+                }
+                else
+                {
+                    sponsorshipRequest.Status = "PMA";
+                }
 
                 var savedEntity = await _repo.AddAsync(sponsorshipRequest);
 
@@ -107,6 +119,8 @@ public class SponsorshipRequestService : ISponsorshipRequestService
             );
         }
     }
+
+    // Update sponsorship request
     public async Task<ServiceResponse<SponsorshipRequestReadDto>> UpdateSponsorshipRequestAsync(Guid id, SponsorshipRequestUpdateDto dto)
     {
         var existing = await _repo.GetEntityByIdAsync(id);
@@ -131,6 +145,8 @@ public class SponsorshipRequestService : ISponsorshipRequestService
              data: _mapper.Map<SponsorshipRequestReadDto>(resultDto)
         );
     }
+
+    // Delete sponsorship request
     public async Task<ServiceResponse<bool>> DeleteSponsorshipRequestAsync(Guid id)
     {
         var result = await _repo.DeleteAsync(id);
@@ -150,22 +166,68 @@ public class SponsorshipRequestService : ISponsorshipRequestService
         );
     }
 
-    public async Task<ServiceResponse<bool>> UpdateStatusAsync(Guid id, string status)
+    // Update sponsorship request status
+    public async Task<ServiceResponse<bool>> UpdateStatusAsync(SponsorshipRequestStatusUpdateDto dto)
     {
-        var result = await _repo.UpdateStatusAsync(id, status);
-        if (!result)
+        try
         {
-            return _response.Create<bool>(
+            return await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var updated = await _repo.UpdateStatusAsync(dto.SponsorshipId, dto.StatusCode);
+
+                if (!updated)
+                {
+                    return _response.Create(
+                        success: false,
+                        message: "Sponsorship request not found or status update failed",
+                        data: false
+                    );
+                }
+
+                // Add workflow history
+                await _repoWorkflowHistory.AddAsync(new WorkflowHistories
+                {
+                    SponsorshipId = dto.SponsorshipId,
+                    Notes = "Status updated to " + dto.StatusCode,
+                    ActionBy = dto.UpdatedBy ?? Guid.Empty,
+                    ActionDate = DateTime.UtcNow
+                });
+
+                return _response.Create(
+                    success: true,
+                    message: "Sponsorship request status updated successfully",
+                    data: true
+                );
+            });
+        }
+        catch (Exception ex)
+        {
+            return _response.Create(
                 success: false,
-                message: "Sponsorship request not found or status update failed",
+                message: ex.Message,
                 data: false
+            );
+        }
+    }
+
+    // Get sponsorship request history
+    public async Task<ServiceResponse<IEnumerable<WorkflowHistoryReadDto>>> GetSponsorshipRequestHistoryAsync(Guid sponsorshipId)
+    {
+        var result = await _repoWorkflowHistory.GetAllAsync(sponsorshipId);
+
+        if (!result.Any())
+        {
+            return _response.Create<IEnumerable<WorkflowHistoryReadDto>>(
+                success: false,
+                message: "No workflow history found",
+                data: null
             );
         }
 
         return _response.Create(
              success: true,
-             message: "Sponsorship request status updated successfully",
-             data: true
+             message: "Sponsorship request history retrieved successfully",
+             data: result
         );
     }
 }

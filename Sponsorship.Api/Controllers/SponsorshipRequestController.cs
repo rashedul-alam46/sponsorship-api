@@ -17,9 +17,9 @@ namespace Sponsorship.Api.Controllers
 
         // GET: api/sponsorshiprequests
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SponsorshipRequestReadDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<SponsorshipRequestReadDto>>> GetAll(Guid userId, int roleId)
         {
-            var result = await _service.GetSponsorshipRequestsAsync();
+            var result = await _service.GetSponsorshipRequestsAsync(userId, roleId);
             if (!result.Success)
                 return BadRequest(result);
 
@@ -87,5 +87,38 @@ namespace Sponsorship.Api.Controllers
 
             return Ok(result);
         }
+
+        // PUT: api/sponsorshiprequests/{id}/status
+        [HttpPut("{id:guid}/status")]
+        public async Task<ActionResult<SponsorshipRequestReadDto>> Update(SponsorshipRequestStatusUpdateDto dto)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _service.UpdateStatusAsync(dto);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
+
+        // GET: api/sponsorshiprequests/{id}/history
+        [HttpGet("{id:guid}/history")]
+        public async Task<ActionResult<IEnumerable<WorkflowHistoryReadDto>>> GetHistory(Guid id)
+        {
+            var result = await _service.GetSponsorshipRequestHistoryAsync(id);
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+
     }
 }
