@@ -17,9 +17,9 @@ namespace Sponsorship.Api.Controllers
 
         // GET: api/sponsorshiprequests
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SponsorshipRequestReadDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<SponsorshipRequestReadDto>>> GetAll(Guid userId, int roleId)
         {
-            var result = await _service.GetSponsorshipRequestsAsync();
+            var result = await _service.GetSponsorshipRequestsAsync(userId, roleId);
             if (!result.Success)
                 return BadRequest(result);
 

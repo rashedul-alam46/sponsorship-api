@@ -16,7 +16,7 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
     }
 
 
-    public async Task<IEnumerable<SponsorshipRequestReadDto>> GetAllAsync()
+    public async Task<IEnumerable<SponsorshipRequestReadDto>> GetAllAsync(Guid userId, int roleId)
     {
         var query = from a in _context.SponsorshipRequests
                     join d in _context.Departments
@@ -25,26 +25,51 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
                         on a.SponsorshipType equals st.TypeCode
                     join ws in _context.WorkflowStatus
                         on a.Status equals ws.StatusCode
-                    select new SponsorshipRequestReadDto
+                    select new
                     {
-                        SponsorshipId = a.SponsorshipId,
-                        RequestTitle = a.RequestTitle,
-                        RequestorName = a.RequestorName,
-                        DepartmentCode = d.DepCode,
-                        DepartmentName = d.DepName,
-                        SponsorshipType = st.TypeCode,
-                        SponsorshipTypeName = st.TypeName,
-                        EventOrganisationName = a.EventOrganisationName,
-                        EventDate = a.EventDate,
-                        RequestedAmount = a.RequestedAmount,
-                        Purpose = a.Purpose,
-                        ExpectedBusinessBenefit = a.ExpectedBusinessBenefit,
-                        Remarks = a.Remarks,
-                        StatusCode = a.Status,
-                        StatusName = ws.StatusName
+                        Request = a,
+                        Department = d,
+                        SponsorshipType = st,
+                        WorkflowStatus = ws
                     };
 
-        return await query.ToListAsync();
+        // Apply role-based filtering
+        if (roleId == 4)
+        {
+            query = query.Where(x => x.Request.CreatedBy == userId);
+        }
+        else if (roleId == 3)
+        {
+            query = query.Where(x => x.Request.Status == "PMA");
+        }
+        else if (roleId == 2)
+        {
+            query = query.Where(x => x.Request.Status == "PFR");
+        }
+
+        return await query.Select(x => new SponsorshipRequestReadDto
+        {
+            SponsorshipId = x.Request.SponsorshipId,
+            RequestTitle = x.Request.RequestTitle,
+            RequestorName = x.Request.RequestorName,
+
+            DepartmentCode = x.Department.DepCode,
+            DepartmentName = x.Department.DepName,
+
+            SponsorshipType = x.SponsorshipType.TypeCode,
+            SponsorshipTypeName = x.SponsorshipType.TypeName,
+
+            EventOrganisationName = x.Request.EventOrganisationName,
+            EventDate = x.Request.EventDate,
+            RequestedAmount = x.Request.RequestedAmount,
+            Purpose = x.Request.Purpose,
+            ExpectedBusinessBenefit = x.Request.ExpectedBusinessBenefit,
+            Remarks = x.Request.Remarks,
+
+            StatusCode = x.Request.Status,
+            StatusName = x.WorkflowStatus.StatusName
+        })
+            .ToListAsync();
     }
 
     public async Task<SponsorshipRequestReadDto?> GetByIdAsync(Guid id)

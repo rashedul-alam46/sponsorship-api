@@ -7,7 +7,7 @@ public interface ISponsorshipRequestRepository
 {
     Task<SponsorshipRequestReadDto?> GetByIdAsync(Guid id);
     Task<SponsorshipRequests?> GetEntityByIdAsync(Guid id);
-    Task<IEnumerable<SponsorshipRequestReadDto>> GetAllAsync();
+    Task<IEnumerable<SponsorshipRequestReadDto>> GetAllAsync(Guid userId, int roleId);
     Task<SponsorshipRequests> AddAsync(SponsorshipRequests sponsorshipRequest);
     Task<bool> UpdateAsync(SponsorshipRequests sponsorshipRequest);
     Task<bool> DeleteAsync(Guid id);

@@ -28,9 +28,9 @@ public class SponsorshipRequestService : ISponsorshipRequestService
     }
 
     // Get all sponsorship requests
-    public async Task<ServiceResponse<IEnumerable<SponsorshipRequestReadDto>>> GetSponsorshipRequestsAsync()
+    public async Task<ServiceResponse<IEnumerable<SponsorshipRequestReadDto>>> GetSponsorshipRequestsAsync(Guid userId, int roleId)
     {
-        var result = await _repo.GetAllAsync();
+        var result = await _repo.GetAllAsync(userId, roleId);
 
         if (!result.Any())
         {
