@@ -21,8 +21,10 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
         var query = from a in _context.SponsorshipRequests
                     join d in _context.Departments
                         on a.Department equals d.DepCode
-                    join s in _context.SponsorshipTypes
-                        on a.SponsorshipType equals s.TypeCode
+                    join st in _context.SponsorshipTypes
+                        on a.SponsorshipType equals st.TypeCode
+                    join ws in _context.WorkflowStatus
+                        on a.Status equals ws.StatusCode
                     select new SponsorshipRequestReadDto
                     {
                         SponsorshipId = a.SponsorshipId,
@@ -30,14 +32,16 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
                         RequestorName = a.RequestorName,
                         DepartmentCode = d.DepCode,
                         DepartmentName = d.DepName,
-                        SponsorshipType = s.TypeCode,
-                        SponsorshipTypeName = s.TypeName,
+                        SponsorshipType = st.TypeCode,
+                        SponsorshipTypeName = st.TypeName,
                         EventOrganisationName = a.EventOrganisationName,
                         EventDate = a.EventDate,
                         RequestedAmount = a.RequestedAmount,
                         Purpose = a.Purpose,
                         ExpectedBusinessBenefit = a.ExpectedBusinessBenefit,
-                        Remarks = a.Remarks
+                        Remarks = a.Remarks,
+                        StatusCode = a.Status,
+                        StatusName = ws.StatusName
                     };
 
         return await query.ToListAsync();
@@ -48,8 +52,10 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
         var query = from a in _context.SponsorshipRequests
                     join d in _context.Departments
                         on a.Department equals d.DepCode
-                    join s in _context.SponsorshipTypes
-                        on a.SponsorshipType equals s.TypeCode
+                    join st in _context.SponsorshipTypes
+                       on a.SponsorshipType equals st.TypeCode
+                    join ws in _context.WorkflowStatus
+                        on a.Status equals ws.StatusCode
                     where a.SponsorshipId == id
                     select new SponsorshipRequestReadDto
                     {
@@ -58,14 +64,16 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
                         RequestorName = a.RequestorName,
                         DepartmentCode = d.DepCode,
                         DepartmentName = d.DepName,
-                        SponsorshipType = s.TypeCode,
-                        SponsorshipTypeName = s.TypeName,
+                        SponsorshipType = st.TypeCode,
+                        SponsorshipTypeName = st.TypeName,
                         EventOrganisationName = a.EventOrganisationName,
                         EventDate = a.EventDate,
                         RequestedAmount = a.RequestedAmount,
                         Purpose = a.Purpose,
                         ExpectedBusinessBenefit = a.ExpectedBusinessBenefit,
-                        Remarks = a.Remarks
+                        Remarks = a.Remarks,
+                        StatusCode = a.Status,
+                        StatusName = ws.StatusName
                     };
 
         return await query.FirstOrDefaultAsync();
