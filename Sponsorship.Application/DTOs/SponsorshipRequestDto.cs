@@ -61,8 +61,9 @@ public class SponsorshipRequestCreateDto
     public string? ExpectedBusinessBenefit { get; set; }
     public string? Remarks { get; set; }
 
-
     public Guid? CreatedBy { get; set; }
+
+    public string? SaveAsDraft { get; set; }
 }
 
 public class SponsorshipRequestUpdateDto
@@ -98,6 +99,18 @@ public class SponsorshipRequestUpdateDto
 
     public string? ExpectedBusinessBenefit { get; set; }
     public string? Remarks { get; set; }
+
+    public Guid? UpdatedBy { get; set; }
+}
+
+
+public class SponsorshipRequestStatusUpdateDto
+{
+    [Required]
+    public Guid SponsorshipId { get; set; }
+
+    [Required]
+    public string? StatusCode { get; set; }
 
     public Guid? UpdatedBy { get; set; }
 }

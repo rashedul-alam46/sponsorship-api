@@ -90,7 +90,7 @@ namespace Sponsorship.Api.Controllers
 
         // PUT: api/sponsorshiprequests/{id}/status
         [HttpPut("{id:guid}/status")]
-        public async Task<ActionResult<SponsorshipRequestReadDto>> Update(Guid id, string status)
+        public async Task<ActionResult<SponsorshipRequestReadDto>> Update(SponsorshipRequestStatusUpdateDto dto)
         {
 
             if (!ModelState.IsValid)
@@ -98,7 +98,7 @@ namespace Sponsorship.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = await _service.UpdateStatusAsync(id, status);
+            var result = await _service.UpdateStatusAsync(dto);
 
             if (!result.Success)
             {
@@ -107,5 +107,18 @@ namespace Sponsorship.Api.Controllers
 
             return Ok(result);
         }
+
+
+        // GET: api/sponsorshiprequests/{id}/history
+        [HttpGet("{id:guid}/history")]
+        public async Task<ActionResult<IEnumerable<WorkflowHistoryReadDto>>> GetHistory(Guid id)
+        {
+            var result = await _service.GetSponsorshipRequestHistoryAsync(id);
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+
     }
 }
