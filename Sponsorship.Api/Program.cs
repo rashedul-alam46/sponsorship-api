@@ -90,16 +90,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// using (var scope = app.Services.CreateScope())
-// {
-//     var context = scope.ServiceProvider.GetRequiredService<SponsorshipDbContext>();
 
-//     // Apply migrations first (important)
-//     await context.Database.MigrateAsync();
-
-//     // Run seeder
-//     await DatabaseSeeder.SeedAsync(context);
-// }
 
 app.Run();
 

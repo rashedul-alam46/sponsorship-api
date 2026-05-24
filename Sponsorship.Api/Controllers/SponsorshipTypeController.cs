@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Sponsorship.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]s")]
+    [Route("api/sponsorshiptypes")]
     public class SponsorshipTypeController : ControllerBase
     {
         private readonly ISponsorshipTypeService _service;
