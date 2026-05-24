@@ -27,3 +27,4 @@ Sponsorship/
 │   └── DTOs/                      # Data Transfer Objects
 ├── Sponsorship.Domain/            # Domain / core (entities)
 ├── Sponsorship.Infrastructure/    # Data access, repository implementations, EF Core, DB context
+```
