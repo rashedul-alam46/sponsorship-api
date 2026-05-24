@@ -47,4 +47,13 @@ dotnet run
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download) or compatible .NET version  
 - [PostgreSQL] installed and running  
-- A tool for API testing, like Postman or HTTPie  (Optional) 
+- A tool for API testing, like Postman or HTTPie  (Optional)
+
+ ## 🗄️ Database Tables Overview
+- app_users – Stores system users and their basic profile information.
+- departments – Defines organizational structure and user grouping.
+- user_roles – Manages role-based access control (Admin, Manager, Finance, Requestor).
+- sponsorship_types – Stores predefined categories of sponsorship requests.
+- sponsorship_requests – Core table holding all sponsorship request data and status.
+- workflow_status – Defines all possible workflow states (Draft, Pending, Approved, etc.).
+- workflow_histories – Keeps audit trail of all status changes and approvals.
