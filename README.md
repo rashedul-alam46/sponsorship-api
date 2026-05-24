@@ -18,4 +18,12 @@ It provides secure, role-based, workflow-driven APIs for managing sponsorship re
 
 ---
 
-## 🏗️ Backend Architecture
+## 📁 Repository Structure
+```
+Sponsorship/
+├── Sponsorship.Api/               # API / presentation layer (controllers, endpoints)
+├── Sponsorship.Application/       # Application logic
+│   ├── Services/                  # Business logic
+│   └── DTOs/                      # Data Transfer Objects
+├── Sponsorship.Domain/            # Domain / core (entities)
+├── Sponsorship.Infrastructure/    # Data access, repository implementations, EF Core, DB context
