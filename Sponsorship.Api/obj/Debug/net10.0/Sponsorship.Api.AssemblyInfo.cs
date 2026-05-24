@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sponsorship.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc1479b13d4d3e3d82ba3c0aa423f7268bac6fca")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9bc951a68b052f4e7b7bc273515393c65f2c6a97")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sponsorship.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sponsorship.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
