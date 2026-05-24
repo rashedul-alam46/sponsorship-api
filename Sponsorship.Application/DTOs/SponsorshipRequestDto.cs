@@ -99,7 +99,7 @@ public class SponsorshipRequestUpdateDto
 
     public string? ExpectedBusinessBenefit { get; set; }
     public string? Remarks { get; set; }
-
+    public string? StatusCode { get; set; }
     public Guid? UpdatedBy { get; set; }
 }
 

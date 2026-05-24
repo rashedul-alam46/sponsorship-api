@@ -24,7 +24,7 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
                     join st in _context.SponsorshipTypes
                         on a.SponsorshipType equals st.TypeCode
                     join ws in _context.WorkflowStatus
-                        on a.Status equals ws.StatusCode
+                        on a.StatusCode equals ws.StatusCode
                     select new
                     {
                         Request = a,
@@ -40,11 +40,11 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
         }
         else if (roleId == 3)
         {
-            query = query.Where(x => x.Request.Status == "PMA");
+            query = query.Where(x => x.Request.StatusCode == "PMA");
         }
         else if (roleId == 2)
         {
-            query = query.Where(x => x.Request.Status == "PFR");
+            query = query.Where(x => x.Request.StatusCode == "PFR");
         }
 
         return await query.Select(x => new SponsorshipRequestReadDto
@@ -66,7 +66,7 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
             ExpectedBusinessBenefit = x.Request.ExpectedBusinessBenefit,
             Remarks = x.Request.Remarks,
 
-            StatusCode = x.Request.Status,
+            StatusCode = x.Request.StatusCode,
             StatusName = x.WorkflowStatus.StatusName
         })
             .ToListAsync();
@@ -80,7 +80,7 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
                     join st in _context.SponsorshipTypes
                        on a.SponsorshipType equals st.TypeCode
                     join ws in _context.WorkflowStatus
-                        on a.Status equals ws.StatusCode
+                        on a.StatusCode equals ws.StatusCode
                     where a.SponsorshipId == id
                     select new SponsorshipRequestReadDto
                     {
@@ -97,7 +97,7 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
                         Purpose = a.Purpose,
                         ExpectedBusinessBenefit = a.ExpectedBusinessBenefit,
                         Remarks = a.Remarks,
-                        StatusCode = a.Status,
+                        StatusCode = a.StatusCode,
                         StatusName = ws.StatusName
                     };
 
@@ -139,10 +139,10 @@ public class SponsorshipRequestRepository : ISponsorshipRequestRepository
         return await _context.SponsorshipRequests.AnyAsync(a => a.SponsorshipId == sponsorshipId);
     }
 
-    public async Task<bool> UpdateStatusAsync(Guid id, string status)
+    public async Task<bool> UpdateStatusAsync(Guid id, string statusCode)
     {
         return await _context.Set<SponsorshipRequests>()
             .Where(x => x.SponsorshipId == id)
-            .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Status, status)) > 0;
+            .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.StatusCode, statusCode)) > 0;
     }
 }

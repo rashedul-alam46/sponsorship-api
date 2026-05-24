@@ -55,8 +55,8 @@ public class SponsorshipRequests
 
     [Required]
     [MaxLength(3)]
-    [Column("status", TypeName = "character(3)")]
-    public string Status { get; set; } = "PEN";
+    [Column("status_code", TypeName = "character(3)")]
+    public string StatusCode { get; set; } = "PEN";
 
     [Required]
     [Column("created_at", TypeName = "timestamp with time zone")]

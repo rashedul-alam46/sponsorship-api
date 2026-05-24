@@ -31,6 +31,9 @@ builder.Services.AddScoped<ISponsorshipRequestService, SponsorshipRequestService
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IAppUserService, AppUserService>();
 
+builder.Services.AddScoped<ISponsorshipTypeRepository, SponsorshipTypeRepository>();
+builder.Services.AddScoped<ISponsorshipTypeService, SponsorshipTypeService>();
+
 builder.Services.AddScoped<IDropdownRepository, DropdownRepository>();
 builder.Services.AddScoped<IDropdownService, DropdownService>();
 
@@ -87,16 +90,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// using (var scope = app.Services.CreateScope())
-// {
-//     var context = scope.ServiceProvider.GetRequiredService<SponsorshipDbContext>();
 
-//     // Apply migrations first (important)
-//     await context.Database.MigrateAsync();
-
-//     // Run seeder
-//     await DatabaseSeeder.SeedAsync(context);
-// }
 
 app.Run();
 
