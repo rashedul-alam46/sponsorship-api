@@ -81,11 +81,11 @@ public class SponsorshipRequestService : ISponsorshipRequestService
                 sponsorshipRequest.CreatedAt = DateTime.UtcNow;
                 if (dto.SaveAsDraft == "Y")
                 {
-                    sponsorshipRequest.Status = "DRA";
+                    sponsorshipRequest.StatusCode = "DRA";
                 }
                 else
                 {
-                    sponsorshipRequest.Status = "PMA";
+                    sponsorshipRequest.StatusCode = "PMA";
                 }
 
                 var savedEntity = await _repo.AddAsync(sponsorshipRequest);
