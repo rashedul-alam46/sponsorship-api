@@ -28,3 +28,6 @@ Sponsorship/
 ├── Sponsorship.Domain/            # Domain / core (entities)
 ├── Sponsorship.Infrastructure/    # Data access, repository implementations, EF Core, DB context
 ```
+**3. Create database**
+
+Run the SQL script located in **Sponsorship.Infrastructure/Data/database_schema.sql**  AND **Sponsorship.Infrastructure/Data/table_data.sql** to create the database tables and insert dummy data.   
