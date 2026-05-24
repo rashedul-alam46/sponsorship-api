@@ -17,6 +17,7 @@ public class DropdownRepository : IDropdownRepository
     public async Task<IEnumerable<DropdownItem>> GetDepartmentDropdownAsync()
     {
         return await _context.Departments
+        .Where(c => c.IsActive)
             .Select(c => new DropdownItem
             {
                 Value = c.DepCode,
@@ -30,6 +31,7 @@ public class DropdownRepository : IDropdownRepository
     public async Task<IEnumerable<DropdownItem>> GetSponsorshipTypeDropdownAsync()
     {
         return await _context.SponsorshipTypes
+        .Where(a => a.IsActive)
             .Select(a => new DropdownItem
             {
                 Value = a.TypeCode,
