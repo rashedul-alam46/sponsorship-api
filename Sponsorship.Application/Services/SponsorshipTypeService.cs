@@ -71,6 +71,16 @@ public class SponsorshipTypeService : ISponsorshipTypeService
     // Add new sponsorship type
     public async Task<ServiceResponse<SponsorshipTypeReadDto>> AddSponsorshipTypeAsync(SponsorshipTypeCreateDto dto)
     {
+        var existing = await _repo.GetByIdAsync(dto.TypeCode);
+        if (existing != null)
+        {
+            return _response.Create<SponsorshipTypeReadDto>(
+                success: false,
+                message: "Sponsorship type with the same code already exists",
+                data: null
+            );
+        }
+
         var entity = _mapper.Map<SponsorshipTypes>(dto);
         var created = await _repo.AddAsync(entity);
 
