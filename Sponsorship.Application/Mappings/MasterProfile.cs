@@ -21,5 +21,10 @@ public class MasterProfile : Profile
         // AppUser mappings
         CreateMap<AppUsers, AppUserReadDto>();
         CreateMap<AppUserCreateDto, AppUsers>();
+
+        // SponsorshipType mappings
+        CreateMap<SponsorshipTypes, SponsorshipTypeReadDto>();
+        CreateMap<SponsorshipTypeCreateDto, SponsorshipTypes>();
+        CreateMap<SponsorshipTypeUpdateDto, SponsorshipTypes>();
     }
 }

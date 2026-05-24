@@ -31,6 +31,9 @@ builder.Services.AddScoped<ISponsorshipRequestService, SponsorshipRequestService
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IAppUserService, AppUserService>();
 
+builder.Services.AddScoped<ISponsorshipTypeRepository, SponsorshipTypeRepository>();
+builder.Services.AddScoped<ISponsorshipTypeService, SponsorshipTypeService>();
+
 builder.Services.AddScoped<IDropdownRepository, DropdownRepository>();
 builder.Services.AddScoped<IDropdownService, DropdownService>();
 
