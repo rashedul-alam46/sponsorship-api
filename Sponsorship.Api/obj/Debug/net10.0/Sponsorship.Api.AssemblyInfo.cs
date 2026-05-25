@@ -13,7 +13,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sponsorship.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+910ce2a03b8390dfad558736b1c2709f0ec1a29c")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+caf91b0dd0738a349fbd3ac96d22606654c908b6")]
+>>>>>>> dev
 [assembly: System.Reflection.AssemblyProductAttribute("Sponsorship.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sponsorship.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
