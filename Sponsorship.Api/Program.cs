@@ -71,14 +71,11 @@ var app = builder.Build();
 
 
 // Middleware
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
-    // Redirect root to Swagger
-    app.MapGet("/", () => Results.Redirect("/swagger")).ExcludeFromDescription();
-}
+    c.RoutePrefix = "swagger";
+});
 
 
 // CORS
