@@ -58,9 +58,9 @@ builder.Services.AddSwaggerGen();
 // CORS (for Blazor or frontend)
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowBlazor", policy =>
+    options.AddPolicy("AllowBlazorApp", policy =>
     {
-        policy.WithOrigins("http://localhost:5073")
+        policy.WithOrigins("https://sponsorship-web.onrender.com")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
