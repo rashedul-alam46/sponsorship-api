@@ -9,20 +9,22 @@ using Microsoft.EntityFrameworkCore;
 using Sponsorship.Interfaces.Helpers;
 using Sponsorship.Infrastructure.Models;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add controllers
+// =====================
+// Controllers
+// =====================
 builder.Services.AddControllers();
 
-
-
+// =====================
+// DB Context
+// =====================
 builder.Services.AddDbContext<SponsorshipDbContext>(options =>
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("ConString")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("ConString")));
 
-// Register repositories and services
+// =====================
+// Dependency Injection
+// =====================
 builder.Services.AddScoped<IServiceResponseFactory, ServiceResponseFactory>();
 
 builder.Services.AddScoped<ISponsorshipRequestRepository, SponsorshipRequestRepository>();
@@ -44,18 +46,20 @@ builder.Services.AddScoped<IUnitOfWork, MasterUnitOfWork>();
 
 builder.Services.AddScoped<IAccountAuthService, AccountAuthService>();
 
-
-
+// =====================
 // AutoMapper
+// =====================
 builder.Services.AddAutoMapper(_ => { }, typeof(MasterProfile).Assembly);
 
-
+// =====================
 // Swagger
+// =====================
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-// CORS (for Blazor or frontend)
+// =====================
+// CORS (IMPORTANT FIXED)
+// =====================
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowBlazorFrontend", policy =>
@@ -66,28 +70,24 @@ builder.Services.AddCors(options =>
     });
 });
 
-
 var app = builder.Build();
 
-
-// Middleware
+// =====================
+// Middleware Pipeline
+// =====================
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.RoutePrefix = "swagger";
 });
 
-
-// CORS
-app.UseCors("AllowBlazor");
-
 app.UseHttpsRedirection();
+
+// Apply CORS policy before authorization
+app.UseCors("AllowBlazorFrontend");
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-
-
 app.Run();
-

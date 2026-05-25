@@ -16,6 +16,7 @@ using System.Reflection;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+910ce2a03b8390dfad558736b1c2709f0ec1a29c")]
 =======
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+caf91b0dd0738a349fbd3ac96d22606654c908b6")]
@@ -25,6 +26,9 @@ using System.Reflection;
 >>>>>>> dev
 =======
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e44aaed4a7d5e9a03efe545373fe5cfeee366bec")]
+>>>>>>> dev
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0239648a4ab5f3ce15628db25b4f5ea6abae4ae4")]
 >>>>>>> dev
 [assembly: System.Reflection.AssemblyProductAttribute("Sponsorship.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sponsorship.Api")]
