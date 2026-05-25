@@ -14,9 +14,13 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 <<<<<<< HEAD
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+910ce2a03b8390dfad558736b1c2709f0ec1a29c")]
 =======
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+caf91b0dd0738a349fbd3ac96d22606654c908b6")]
+>>>>>>> dev
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ebccdbc7fb7da8e467969f3d6781b630ab15cb44")]
 >>>>>>> dev
 [assembly: System.Reflection.AssemblyProductAttribute("Sponsorship.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sponsorship.Api")]
